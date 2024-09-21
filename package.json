@@ -1,0 +1,24 @@
+{
+  "name": "express-ddd",
+  "module": "./bin/index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.7",
+    "prisma": "^5.19.1"
+  },
+  "scripts": {
+    "start-dev": "bun --hot bin/index.ts",
+    "test": "bun wiptest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.19.1",
+    "@types/node": "^22.5.5",
+    "express": "^4.21.0",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
