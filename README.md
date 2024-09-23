@@ -55,7 +55,7 @@ minikube service app --url
 then you can test this service by using curl or postman with the url
 
 ### if you to use helm
-you can use helm to deploy the app
+you can use helm to deploy the app also if you decided to use helm you need to build the docker image first like above because this is using local docker image
 ```bash
 helm install express-ddd ./express-ddd
 ```
