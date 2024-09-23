@@ -36,6 +36,12 @@ kubectl apply -f ./deployment/postgres-deployment.yaml
 docker build -t express-ddd:latest .
 ```
 
+### start the app
+```bash
+kubectl apply -f deployment/app-deployment.yaml
+```
+
+
 ### check if the service is running
 ```bash
 kubectl get po -A
@@ -46,7 +52,7 @@ kubectl get po -A
 minikube service app --url
 ```
 
-then you can test this service by useing curl or postman with the url
+then you can test this service by using curl or postman with the url
 
 
 
