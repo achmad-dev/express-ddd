@@ -1,4 +1,4 @@
-import { UserUsecase } from "../../usecase/user_usecase";
+import { UserUsecase } from "../../service/user_service";
 import { response } from "../../../shared/domain/response";
 import type { Request, Response } from "express";
 import { logger } from "../../../shared/util/logger";

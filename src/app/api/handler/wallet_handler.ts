@@ -1,4 +1,4 @@
-import { WalletUsecase } from "../../usecase/wallet_usecase";
+import { WalletUsecase } from "../../service/wallet_service";
 import { response } from "../../../shared/domain/response";
 import type { Request, Response as ExpressResponse } from "express";
 import { z } from "zod";

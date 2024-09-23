@@ -3,8 +3,8 @@ import { UserHandler } from "../handler/user_handler";
 import { WalletHandler } from "../handler/wallet_handler";
 import { UserRepo } from "../../repository/user_repo";
 import { WalletRepo } from "../../repository/wallet_repo";
-import { UserUsecase } from "../../usecase/user_usecase";
-import { WalletUsecase } from "../../usecase/wallet_usecase";
+import { UserUsecase } from "../../service/user_service";
+import { WalletUsecase } from "../../service/wallet_service";
 import { PrismaClient } from "@prisma/client";
 import { authMiddleware } from "../middleware/middleware";
 
