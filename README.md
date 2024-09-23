@@ -6,7 +6,7 @@
  - bun
  - minikube
  - kubectl
-
+ - helm (optional)
 
 ## description
 this is an express project that uses DDD principles, with simple wallet concept 
