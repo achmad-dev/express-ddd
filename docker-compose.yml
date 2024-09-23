@@ -1,4 +1,15 @@
 services:
+  app:
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/postgres
+    depends_on:
+      - postgres
+    networks:
+      - app
+      
   postgres:
     image: postgres:latest
     ports:
@@ -10,12 +21,12 @@ services:
     volumes:
       - postgres:/var/lib/postgresql/data
     networks:
-      - postgres
+      - app
 
 volumes:
   postgres:
     driver: local
 
 networks:
-  postgres:
+  app:
     driver: bridge

@@ -10,7 +10,7 @@ interface baseUserUsecase {
   findByName(name: string): Promise<User>;
   create(name: string, email: string, password: string): Promise<User>;
   signIn(email: string, password: string): Promise<Authentication>;
-  update(user: User): Promise<User>;
+
 }
 
 export class UserUsecase implements baseUserUsecase {
@@ -29,15 +29,16 @@ export class UserUsecase implements baseUserUsecase {
   }
 
   async create(name: string, email: string, password: string): Promise<User> {
-    const hashedPassword = await Bun.password.hash(password);
-    const user: User = {
-      id: "",
-      name,
-      email,
-      password: hashedPassword,
-    };
-    await this.walletRepo.create(user.id, 0);
-    return this.userRepo.create(user);
+    try {
+      const hashedPassword = await Bun.password.hash(password);
+      const user: User = await this.userRepo.create({ name, email, password: hashedPassword });
+      if (user.id) {
+        await this.walletRepo.create(user.id, 0);
+      }
+      return user;
+    } catch (error) {
+      throw new Error("User already exists");
+    }
   }
 
   async signIn(email: string, password: string): Promise<Authentication> {
@@ -49,7 +50,9 @@ export class UserUsecase implements baseUserUsecase {
     if (!isPasswordCorrect) {
       throw new Error("Invalid password");
     }
-    const token = jwt.sign(user.id, "whatever");
+    // in production you need to move the secret to secure environment variables
+    const token = jwt.sign({ userId: user.id }, "whatever");
+    // in production you need to implement a refresh token
     // const refreshToken = randomUUIDString(12);
     const authentication: Authentication = {
       token: token,
@@ -59,9 +62,7 @@ export class UserUsecase implements baseUserUsecase {
     return authentication;
   }
 
-  async update(user: User): Promise<User> {
-    return this.userRepo.update(user);
-  }
+
 }
 
 // const randomUUIDString = (length: number) => {

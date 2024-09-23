@@ -10,6 +10,8 @@
   },
   "scripts": {
     "start-dev": "bun --hot bin/index.ts",
+    "migrate": "bun prisma migrate dev --name init",
+    "start-and-migrate-prod": "bun prisma migrate deploy && bun run bin/index.ts",
     "test": "bun wiptest"
   },
   "peerDependencies": {
@@ -19,6 +21,8 @@
     "@prisma/client": "^5.19.1",
     "@types/node": "^22.5.5",
     "express": "^4.21.0",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "winston": "^3.14.2",
+    "zod": "^3.23.8"
   }
 }

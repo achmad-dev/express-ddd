@@ -13,19 +13,27 @@ export class WalletRepo implements baseWalletRepo {
   constructor(private prisma: PrismaClient) { }
 
   async findById(id: string): Promise<Wallet> {
-    return this.prisma.wallet.findUnique({
+    const wallet = await this.prisma.wallet.findUnique({
       where: {
         id,
       },
     });
+    if (!wallet) {
+      throw new Error("Wallet not found");
+    }
+    return wallet;
   }
 
   async findByUserId(userId: string): Promise<Wallet> {
-    return this.prisma.wallet.findUnique({
+    const wallet = await this.prisma.wallet.findUnique({
       where: {
         userId,
       },
     });
+    if (!wallet) {
+      throw new Error("Wallet not found");
+    }
+    return wallet;
   }
 
   async create(userId: string, balance: number): Promise<Wallet> {
@@ -37,14 +45,38 @@ export class WalletRepo implements baseWalletRepo {
     });
   }
 
-  async update(userId: string, balance: number): Promise<Wallet> {
-    return this.prisma.wallet.update({
-      where: {
-        userId,
-      },
-      data: {
-        balance,
-      },
+  // async update to use transaction for withdrawal or deposit
+  async update(userId: string, balanceChange: number): Promise<Wallet> {
+    return this.prisma.$transaction(async (prisma) => {
+
+      const wallet = await prisma.wallet.findUnique({
+        where: {
+          userId,
+        },
+      });
+
+      if (!wallet) {
+        throw new Error("Wallet not found");
+      }
+
+      const currentBalance = wallet.balance;
+
+      if (balanceChange < 0) {
+        if (currentBalance === 0) {
+          throw new Error("Cannot withdraw from a wallet with zero balance");
+        } else if (currentBalance + balanceChange < 0) {
+          throw new Error("Insufficient balance for withdrawal");
+        }
+      }
+
+      return prisma.wallet.update({
+        where: {
+          userId,
+        },
+        data: {
+          balance: currentBalance + balanceChange,
+        },
+      });
     });
   }
 } 

@@ -20,12 +20,18 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  // Establish a one-to-one relationship with Wallet
+  wallet    Wallet?
 }
 
 model Wallet {
   id        String   @id @default(uuid())
-  userId    String
+  userId    String   @unique  // Ensure one wallet per user
   balance   Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  // Foreign key to User model
+  user      User     @relation(fields: [userId], references: [id])
 }

@@ -1,5 +1,17 @@
 # express-ddd
 
+## prerequisites
+ - docker
+ - docker-compose
+ - bun
+ - minikube
+
+
+## description
+this is am express project that uses DDD principles, with simple wallet concept 
+
+
+## below is the original readme
 To install dependencies:
 
 ```bash

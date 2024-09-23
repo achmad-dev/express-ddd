@@ -3,6 +3,8 @@ import { initRoute } from "../src/app/api/route/route";
 
 const app = express();
 
+app.use(express.json());
+
 initRoute(app);
 
 app.listen(3000, () => {
