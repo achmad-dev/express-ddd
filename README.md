@@ -9,7 +9,7 @@
 
 
 ## description
-this is am express project that uses DDD principles, with simple wallet concept 
+this is an express project that uses DDD principles, with simple wallet concept 
 
 
 ## how to run
