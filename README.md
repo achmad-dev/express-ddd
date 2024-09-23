@@ -2,10 +2,10 @@
 
 ## prerequisites
  - docker
- - docker-compose
+ - docker-compose (optional)
  - bun
- - minikube
- - kubectl
+ - minikube (optional)
+ - kubectl (optional)
  - helm (optional)
 
 ## description
@@ -54,7 +54,20 @@ minikube service app --url
 
 then you can test this service by using curl or postman with the url
 
+### if you to use helm
+you can use helm to deploy the app
+```bash
+helm install express-ddd ./express-ddd
+```
 
+
+## to run with docker-compose
+```bash
+docker-compose up -d
+```
+
+and then you can check the running services and check the url is like above when using a kubectl command
+and you can test like above too
 
 
 ## below is the original readme from bun init
